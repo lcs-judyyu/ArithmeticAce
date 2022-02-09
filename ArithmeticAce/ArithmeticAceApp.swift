@@ -20,17 +20,17 @@ struct ArithmeticAceApp: App {
                 SubtractionView()
                     .tabItem {
                         Image(systemName: "minus.circle")
-                        Text("Add")
+                        Text("Minus")
                     }
                 MultiplicationView()
                     .tabItem {
-                        Image(systemName: "mutiply.circle")
-                        Text("Add")
+                        Image(systemName: "multiply.circle")
+                        Text("Multiply")
                     }
                 DivisionView()
                     .tabItem {
                         Image(systemName: "divide.circle")
-                        Text("Add")
+                        Text("Divide")
                     }
             }
         }

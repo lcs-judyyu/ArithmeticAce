@@ -28,8 +28,8 @@ struct GrowingButton: ButtonStyle {
 struct AdditionView: View {
     
     // MARK: Stored properties
-    @State var augend = Int.random(in: 1...12)
-    @State var addend = Int.random(in: 1...12)
+    @State var augend = Int.random(in: 1...72)
+    @State var addend = Int.random(in: 1...72)
     
     // This string contains whatever the user types in
     @State var inputGiven = ""
@@ -116,8 +116,8 @@ struct AdditionView: View {
                 
                 Button(action: {
                     // Generate a new question
-                    augend = Int.random(in: 1...12)
-                    addend = Int.random(in: 1...12)
+                    augend = Int.random(in: 1...72)
+                    addend = Int.random(in: 1...72)
                     
                     // Reset properties that track what's happening with the current question
                     answerChecked = false

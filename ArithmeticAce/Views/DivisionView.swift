@@ -10,7 +10,7 @@ import SwiftUI
 struct DivisionView: View {
     
     // MARK: Stored properties
-    @State var dividend = Int.random(in: 1...12)
+    @State var correctQuotient = Int.random(in: 1...12)
     @State var divisor = Int.random(in: 1...12)
 
     // This string contains whatever the user types in
@@ -24,8 +24,8 @@ struct DivisionView: View {
     
     // MARK: Computed properties
     // What is the dividend, based on the randomly generated divisor and quotient?
-    var correctQuotient: Int {
-        return dividend / divisor
+    var dividend: Int {
+        return correctQuotient * divisor
     }
     
     var body: some View {
@@ -98,7 +98,7 @@ struct DivisionView: View {
                 
                 Button(action: {
                     // Generate a new question
-                    dividend = Int.random(in: 1...12)
+                    correctQuotient = Int.random(in: 1...12)
                     divisor = Int.random(in: 1...12)
 
                     // Reset properties that track what's happening with the current question
