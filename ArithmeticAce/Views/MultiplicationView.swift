@@ -1,17 +1,17 @@
 //
-//  SubtractionView.swift
+//  MultiplicationView.swift
 //  ArithmeticAce
 //
-//  Created by Russell Gordon on 2022-02-09.
+//  Created by Russell Gordon on 2022-02-07.
 //
 
 import SwiftUI
 
-struct SubtractionView: View {
+struct MultiplicationView: View {
     
     // MARK: Stored properties
-    @State var minuend = Int.random(in: 1...12)
-    @State var subtrahend = Int.random(in: 1...12)
+    @State var multiplicand = Int.random(in: 1...12)
+    @State var multiplier = Int.random(in: 1...12)
     
     // This string contains whatever the user types in
     @State var inputGiven = ""
@@ -23,22 +23,22 @@ struct SubtractionView: View {
     @State var answerCorrect = false
     
     // MARK: Computed properties
-    // What is the correct difference?
-    var correctDifference: Int {
-        return minuend - subtrahend
+    // What is the correct product?
+    var correctProduct: Int {
+        return multiplicand * multiplier
     }
     
     var body: some View {
         
         VStack(spacing: 0) {
             HStack {
-                Text("-")
+                Text("✕")
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("\(minuend)")
-                    Text("\(subtrahend)")
+                    Text("\(multiplicand)")
+                    Text("\(multiplier)")
                 }
             }
             
@@ -56,10 +56,10 @@ struct SubtractionView: View {
                     //        CONDITION1         AND     CONDITION2         true  false
                     //       answerChecked = true     answerCorrect = false
                         .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
+                    
+                    
                 }
-                
                 Spacer()
-                
                 TextField("",
                           text: $inputGiven)
                     .multilineTextAlignment(.trailing)
@@ -73,14 +73,14 @@ struct SubtractionView: View {
                     answerChecked = true
                     
                     // Convert the input given to an integer, if possible
-                    guard let differenceGiven = Int(inputGiven) else {
+                    guard let productGiven = Int(inputGiven) else {
                         // Sadness, not a number
                         answerCorrect = false
                         return
                     }
                     
                     // Check the answer!
-                    if differenceGiven == correctDifference {
+                    if productGiven == correctProduct {
                         // Celebrate! 👍🏼
                         answerCorrect = true
                     } else {
@@ -92,14 +92,14 @@ struct SubtractionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has not been checked
                     .opacity(answerChecked == false ? 1.0 : 0.0)
                 
                 Button(action: {
                     // Generate a new question
-                    minuend = Int.random(in: 1...12)
-                    subtrahend = Int.random(in: 1...12)
+                    multiplicand = Int.random(in: 1...12)
+                    multiplier = Int.random(in: 1...12)
                     
                     // Reset properties that track what's happening with the current question
                     answerChecked = false
@@ -112,7 +112,7 @@ struct SubtractionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has been checked
                     .opacity(answerChecked == true ? 1.0 : 0.0)
                 
@@ -127,8 +127,8 @@ struct SubtractionView: View {
     }
 }
 
-struct SubtractionView_Previews: PreviewProvider {
+struct MultiplicationView_Previews: PreviewProvider {
     static var previews: some View {
-        SubtractionView()
+        MultiplicationView()
     }
 }

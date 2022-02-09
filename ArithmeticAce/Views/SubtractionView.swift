@@ -1,18 +1,18 @@
 //
-//  DivisionView.swift
+//  SubtractionView.swift
 //  ArithmeticAce
 //
-//  Created by Russell Gordon on 2022-02-08.
+//  Created by Russell Gordon on 2022-02-09.
 //
 
 import SwiftUI
 
-struct DivisionView: View {
+struct SubtractionView: View {
     
     // MARK: Stored properties
-    @State var dividend = Int.random(in: 1...12)
-    @State var divisor = Int.random(in: 1...12)
-
+    @State var minuend = Int.random(in: 1...12)
+    @State var subtrahend = Int.random(in: 1...12)
+    
     // This string contains whatever the user types in
     @State var inputGiven = ""
     
@@ -23,22 +23,22 @@ struct DivisionView: View {
     @State var answerCorrect = false
     
     // MARK: Computed properties
-    // What is the dividend, based on the randomly generated divisor and quotient?
-    var correctQuotient: Int {
-        return dividend / divisor
+    // What is the correct difference?
+    var correctDifference: Int {
+        return minuend - subtrahend
     }
     
     var body: some View {
         
         VStack(spacing: 0) {
             HStack {
-                Text("÷")
+                Text("-")
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("\(dividend)")
-                    Text("\(divisor)")
+                    Text("\(minuend)")
+                    Text("\(subtrahend)")
                 }
             }
             
@@ -56,10 +56,10 @@ struct DivisionView: View {
                     //        CONDITION1         AND     CONDITION2         true  false
                     //       answerChecked = true     answerCorrect = false
                         .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
-                    
-                    
                 }
+                
                 Spacer()
+                
                 TextField("",
                           text: $inputGiven)
                     .multilineTextAlignment(.trailing)
@@ -73,14 +73,14 @@ struct DivisionView: View {
                     answerChecked = true
                     
                     // Convert the input given to an integer, if possible
-                    guard let quotientGiven = Int(inputGiven) else {
+                    guard let differenceGiven = Int(inputGiven) else {
                         // Sadness, not a number
                         answerCorrect = false
                         return
                     }
                     
                     // Check the answer!
-                    if quotientGiven == correctQuotient {
+                    if differenceGiven == correctDifference {
                         // Celebrate! 👍🏼
                         answerCorrect = true
                     } else {
@@ -92,15 +92,15 @@ struct DivisionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has not been checked
                     .opacity(answerChecked == false ? 1.0 : 0.0)
                 
                 Button(action: {
                     // Generate a new question
-                    dividend = Int.random(in: 1...12)
-                    divisor = Int.random(in: 1...12)
-
+                    minuend = Int.random(in: 1...12)
+                    subtrahend = Int.random(in: 1...12)
+                    
                     // Reset properties that track what's happening with the current question
                     answerChecked = false
                     answerCorrect = false
@@ -112,12 +112,12 @@ struct DivisionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has been checked
                     .opacity(answerChecked == true ? 1.0 : 0.0)
                 
             }
-                        
+            
             Spacer()
         }
         .padding(.horizontal)
@@ -127,8 +127,8 @@ struct DivisionView: View {
     }
 }
 
-struct DivisionView_Previews: PreviewProvider {
+struct SubtractionView_Previews: PreviewProvider {
     static var previews: some View {
-        DivisionView()
+        SubtractionView()
     }
 }

@@ -1,17 +1,35 @@
 //
-//  MultiplicationView.swift
+//  AdditionView.swift
 //  ArithmeticAce
 //
-//  Created by Russell Gordon on 2022-02-07.
+//  Created by Russell Gordon on 2022-02-08.
 //
 
 import SwiftUI
 
-struct MultiplicationView: View {
+//button style
+struct GrowingButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding(.vertical, 10)
+            .padding(.horizontal, 15)
+            .background(configuration.isPressed ? Color.blue.opacity(0.2) : Color.blue.opacity(0.06))
+            .foregroundColor(.black)
+            .clipShape(RoundedRectangle(cornerRadius: 10, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.blue, lineWidth: 2)
+            )
+            .scaleEffect(configuration.isPressed ? 1.06 : 1)
+            .animation(.easeOut(duration: 0.1), value: configuration.isPressed)
+    }
+}
+
+struct AdditionView: View {
     
     // MARK: Stored properties
-    @State var multiplicand = Int.random(in: 1...12)
-    @State var multiplier = Int.random(in: 1...12)
+    @State var augend = Int.random(in: 1...12)
+    @State var addend = Int.random(in: 1...12)
     
     // This string contains whatever the user types in
     @State var inputGiven = ""
@@ -23,22 +41,22 @@ struct MultiplicationView: View {
     @State var answerCorrect = false
     
     // MARK: Computed properties
-    // What is the correct product?
-    var correctProduct: Int {
-        return multiplicand * multiplier
+    // What is the correct sum?
+    var correctSum: Int {
+        return augend + addend
     }
     
     var body: some View {
         
         VStack(spacing: 0) {
             HStack {
-                Text("✕")
+                Text("+")
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("\(multiplicand)")
-                    Text("\(multiplier)")
+                    Text("\(augend)")
+                    Text("\(addend)")
                 }
             }
             
@@ -56,10 +74,10 @@ struct MultiplicationView: View {
                     //        CONDITION1         AND     CONDITION2         true  false
                     //       answerChecked = true     answerCorrect = false
                         .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
-                    
-                    
                 }
+                
                 Spacer()
+                
                 TextField("",
                           text: $inputGiven)
                     .multilineTextAlignment(.trailing)
@@ -73,14 +91,14 @@ struct MultiplicationView: View {
                     answerChecked = true
                     
                     // Convert the input given to an integer, if possible
-                    guard let productGiven = Int(inputGiven) else {
+                    guard let sumGiven = Int(inputGiven) else {
                         // Sadness, not a number
                         answerCorrect = false
                         return
                     }
                     
                     // Check the answer!
-                    if productGiven == correctProduct {
+                    if sumGiven == correctSum {
                         // Celebrate! 👍🏼
                         answerCorrect = true
                     } else {
@@ -92,14 +110,14 @@ struct MultiplicationView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has not been checked
                     .opacity(answerChecked == false ? 1.0 : 0.0)
                 
                 Button(action: {
                     // Generate a new question
-                    multiplicand = Int.random(in: 1...12)
-                    multiplier = Int.random(in: 1...12)
+                    augend = Int.random(in: 1...12)
+                    addend = Int.random(in: 1...12)
                     
                     // Reset properties that track what's happening with the current question
                     answerChecked = false
@@ -112,11 +130,24 @@ struct MultiplicationView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has been checked
                     .opacity(answerChecked == true ? 1.0 : 0.0)
                 
             }
+            
+            //Reaction animation
+            
+            ZStack {
+                LottieView(animationNamed: "51926-happy")
+                    .opacity(answerCorrect == true ? 1.0 : 0.0)
+                .padding()
+                LottieView(animationNamed: "84655-swinging-sad-emoji")
+                    .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
+                .padding()
+            }
+            
+            
             
             Spacer()
         }
@@ -127,8 +158,8 @@ struct MultiplicationView: View {
     }
 }
 
-struct MultiplicationView_Previews: PreviewProvider {
+struct AdditionView_Previews: PreviewProvider {
     static var previews: some View {
-        MultiplicationView()
+        AdditionView()
     }
 }

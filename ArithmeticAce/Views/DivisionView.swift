@@ -1,5 +1,5 @@
 //
-//  AdditionView.swift
+//  DivisionView.swift
 //  ArithmeticAce
 //
 //  Created by Russell Gordon on 2022-02-08.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct AdditionView: View {
+struct DivisionView: View {
     
     // MARK: Stored properties
-    @State var augend = Int.random(in: 1...12)
-    @State var addend = Int.random(in: 1...12)
-    
+    @State var dividend = Int.random(in: 1...12)
+    @State var divisor = Int.random(in: 1...12)
+
     // This string contains whatever the user types in
     @State var inputGiven = ""
     
@@ -23,22 +23,22 @@ struct AdditionView: View {
     @State var answerCorrect = false
     
     // MARK: Computed properties
-    // What is the correct sum?
-    var correctSum: Int {
-        return augend + addend
+    // What is the dividend, based on the randomly generated divisor and quotient?
+    var correctQuotient: Int {
+        return dividend / divisor
     }
     
     var body: some View {
         
         VStack(spacing: 0) {
             HStack {
-                Text("+")
+                Text("÷")
                 
                 Spacer()
                 
                 VStack(alignment: .trailing) {
-                    Text("\(augend)")
-                    Text("\(addend)")
+                    Text("\(dividend)")
+                    Text("\(divisor)")
                 }
             }
             
@@ -56,10 +56,10 @@ struct AdditionView: View {
                     //        CONDITION1         AND     CONDITION2         true  false
                     //       answerChecked = true     answerCorrect = false
                         .opacity(answerChecked == true && answerCorrect == false ? 1.0 : 0.0)
+                    
+                    
                 }
-                
                 Spacer()
-                
                 TextField("",
                           text: $inputGiven)
                     .multilineTextAlignment(.trailing)
@@ -73,14 +73,14 @@ struct AdditionView: View {
                     answerChecked = true
                     
                     // Convert the input given to an integer, if possible
-                    guard let sumGiven = Int(inputGiven) else {
+                    guard let quotientGiven = Int(inputGiven) else {
                         // Sadness, not a number
                         answerCorrect = false
                         return
                     }
                     
                     // Check the answer!
-                    if sumGiven == correctSum {
+                    if quotientGiven == correctQuotient {
                         // Celebrate! 👍🏼
                         answerCorrect = true
                     } else {
@@ -92,15 +92,15 @@ struct AdditionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has not been checked
                     .opacity(answerChecked == false ? 1.0 : 0.0)
                 
                 Button(action: {
                     // Generate a new question
-                    augend = Int.random(in: 1...12)
-                    addend = Int.random(in: 1...12)
-                    
+                    dividend = Int.random(in: 1...12)
+                    divisor = Int.random(in: 1...12)
+
                     // Reset properties that track what's happening with the current question
                     answerChecked = false
                     answerCorrect = false
@@ -112,12 +112,12 @@ struct AdditionView: View {
                         .font(.largeTitle)
                 })
                     .padding()
-                    .buttonStyle(.bordered)
+                    .buttonStyle(GrowingButton())
                 // Only show this button when an answer has been checked
                     .opacity(answerChecked == true ? 1.0 : 0.0)
                 
             }
-            
+                        
             Spacer()
         }
         .padding(.horizontal)
@@ -127,8 +127,8 @@ struct AdditionView: View {
     }
 }
 
-struct AdditionView_Previews: PreviewProvider {
+struct DivisionView_Previews: PreviewProvider {
     static var previews: some View {
-        AdditionView()
+        DivisionView()
     }
 }
