@@ -49,6 +49,7 @@
 		5A10A2FE27B4242A0036FE88 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5A1E7EF227BACCDE001E81F2 /* Model */,
 				5A10A2FF27B4243B0036FE88 /* Helper */,
 				81BE3A9327B2DAE800880E99 /* AdditionView.swift */,
 				8113965727B3D32100E5B829 /* SubtractionView.swift */,
@@ -64,6 +65,13 @@
 				5A10A30027B4244F0036FE88 /* LottieView.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		5A1E7EF227BACCDE001E81F2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		81FDA61F27B160FF002471AE = {
