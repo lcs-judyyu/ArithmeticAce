@@ -133,7 +133,6 @@ struct AdditionView: View {
                     .buttonStyle(GrowingButton())
                 // Only show this button when an answer has been checked
                     .opacity(answerChecked == true ? 1.0 : 0.0)
-                
             }
             
             //Reaction animation
@@ -147,8 +146,6 @@ struct AdditionView: View {
                 .padding()
             }
             
-            
-            
             Spacer()
         }
         .padding(.horizontal)
@@ -156,9 +153,6 @@ struct AdditionView: View {
         .task {
             addend = Int.random(in: 1...144 - augend)
         }
-        
-        
-        
     }
 }
 
